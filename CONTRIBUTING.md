@@ -1,12 +1,12 @@
 # Contributing to jekyll-llms-txt
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/jchance/jekyll-llms-txt.
+https://github.com/jchance/jekyll-llms-generator.
 
 ## Development
 
 ```bash
-git clone https://github.com/jchance/jekyll-llms-txt.git
+git clone https://github.com/jchance/jekyll-llms-generator.git
 cd jekyll-llms-txt
 bundle install
 bundle exec ruby -Ilib test/llms_txt_generator_test.rb

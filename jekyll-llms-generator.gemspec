@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Automatically generate an llms.txt file for your Jekyll site."
   spec.description   = "jekyll-llms-generator is a Jekyll generator plugin that builds a standards-compliant llms.txt file from your site's posts, collections, and pages so AI language models can efficiently discover your content."
-  spec.homepage      = "https://github.com/jchance/jekyll-llms-txt"
+  spec.homepage      = "https://github.com/jchance/jekyll-llms-generator"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.7.0"
 
