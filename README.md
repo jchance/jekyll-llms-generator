@@ -1,8 +1,8 @@
-# jekyll-llms-txt
+# jekyll-llms-generator
 
 A Jekyll generator plugin that automatically builds an `/llms.txt` file every time your site builds — keeping AI language models up to date with your latest content.
 
-[![Gem Version](https://badge.fury.io/rb/jekyll-llms-txt.svg)](https://badge.fury.io/rb/jekyll-llms-txt)
+[![Gem Version](https://badge.fury.io/rb/jekyll-llms-generator.svg)](https://badge.fury.io/rb/jekyll-llms-generator)
 
 ## What is llms.txt?
 
@@ -13,14 +13,14 @@ A Jekyll generator plugin that automatically builds an `/llms.txt` file every ti
 Add to your site's `Gemfile`:
 
 ```ruby
-gem "jekyll-llms-txt", "~> 0.1"
+gem "jekyll-llms-generator", "~> 0.1"
 ```
 
 Add to your `_config.yml` plugins list:
 
 ```yaml
 plugins:
-  - jekyll-llms-txt
+  - jekyll-llms-generator
 ```
 
 Then run `bundle install`.
