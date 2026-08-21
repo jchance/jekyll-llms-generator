@@ -45,6 +45,12 @@ module Jekyll
         lines << intro.strip
       end
 
+      # Link to full version if enabled — lets crawlers discover llms-full.txt
+      if @config["full"]
+        lines << ""
+        lines << "[Full content version](#{site_base_url}/llms-full.txt)"
+      end
+
       sections = @config["sections"] || []
       sections.each do |section|
         items = collect_section_items(section)
