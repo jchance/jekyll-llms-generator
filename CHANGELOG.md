@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-08-20
+
+### Added
+- When `full: true`, `llms.txt` now includes a `[Full content version](/llms-full.txt)` link in the header section so LLM crawlers can discover the full content file from the compact index
+
 ## [0.2.0] - 2026-08-20
 
 ### Changed

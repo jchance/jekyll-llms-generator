@@ -58,7 +58,7 @@ llms_txt:
 | `tagline` | site `description` | Blockquote line below the title |
 | `intro` | _(none)_ | Optional paragraph after the tagline |
 | `link_tag` | `true` | Inject `<link rel="ai" href="/llms.txt">` into HTML head |
-| `full` | `false` | Also generate `/llms-full.txt` with full content |
+| `full` | `false` | Also generate `/llms-full.txt` with full stripped-HTML content; adds a discovery link in `llms.txt` header |
 | `sections` | `[]` | Array of section definitions (see below) |
 
 ### Section options
@@ -90,15 +90,20 @@ The plugin looks for a description in this order:
 2. `tagline:` frontmatter
 3. Automatically generated excerpt (first paragraph)
 
+Descriptions use the first complete sentence — no hard character truncation.
+
 ## Output
 
-**`/llms.txt`** — compact reference with title, tagline, intro, and a bulleted list of links per section.
+**`/llms.txt`** — compact reference: title, tagline, intro, and a bulleted list of links with first-sentence descriptions per section. When `full: true`, includes a `[Full content version](/llms-full.txt)` link in the header so LLM crawlers can discover the full file.
 
-**`/llms-full.txt`** — same structure but each item also includes the full plain-text content of the document (when `full: true`).
+**`/llms-full.txt`** — full content file (when `full: true`). Each entry uses `### [Title](url)` headings, a `> description` blockquote, the complete stripped-HTML article text, and `---` separators between articles — making article boundaries unambiguous for LLM parsers.
 
 ## Discovery
 
-AI crawlers discover `llms.txt` by checking `<your-site>/llms.txt` directly, the same way they check `robots.txt` or `sitemap.xml`. The optional `<link rel="ai">` injection in the `<head>` of every page provides an additional signal.
+AI crawlers discover `llms.txt` by checking `<your-site>/llms.txt` directly, the same way they check `robots.txt` or `sitemap.xml`. Additional discovery signals:
+
+- The optional `<link rel="ai" href="/llms.txt">` injected into every HTML page's `<head>` (`link_tag: true`, on by default)
+- The `[Full content version]` link in the `llms.txt` header points crawlers to `llms-full.txt`
 
 You can also submit your site to the [llmstxt.org directory](https://directory.llmstxt.cloud/) for broader discovery.
 
