@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2025-07-08
+## [0.2.0] - 2026-08-20
+
+### Changed
+- `llms.txt`: descriptions now use first complete sentence instead of hard 200-character truncation — cleaner, more natural output for LLMs
+- `llms-full.txt`: entries now use `### [Title](url)` headings, `> description` blockquotes, and `---` separators between articles, making article boundaries unambiguous for LLM parsers
+
+## [0.1.0] - 2026-08-20
 
 ### Added
 - Initial release
