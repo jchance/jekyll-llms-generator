@@ -12,12 +12,11 @@ module Jekyll
       @config = site.config["llms_txt"] || {}
       return unless @config["enabled"] != false
 
-      content = build_llms_txt
-      write_file("llms.txt", content)
+      # Store content on site object so the post_write hook can access it
+      site.data["__llms_txt_content"] = build_llms_txt
 
       if @config["full"]
-        full_content = build_llms_full_txt
-        write_file("llms-full.txt", full_content)
+        site.data["__llms_full_txt_content"] = build_llms_full_txt
       end
 
       inject_link_tag(site) if @config["link_tag"] != false
@@ -200,5 +199,21 @@ module Jekyll
         )
       end
     end
+  end
+end
+
+Jekyll::Hooks.register :site, :post_write do |site|
+  content = site.data.delete("__llms_txt_content")
+  if content
+    dest = site.in_dest_dir("llms.txt")
+    FileUtils.mkdir_p(File.dirname(dest))
+    File.write(dest, content)
+  end
+
+  full_content = site.data.delete("__llms_full_txt_content")
+  if full_content
+    dest = site.in_dest_dir("llms-full.txt")
+    FileUtils.mkdir_p(File.dirname(dest))
+    File.write(dest, full_content)
   end
 end
