@@ -136,15 +136,22 @@ module Jekyll
     end
 
     def doc_to_item(doc)
-      description = doc.data["description"] ||
-                    doc.data["tagline"] ||
-                    (doc.data["excerpt"]&.output ? strip_html(doc.data["excerpt"].output) : nil) ||
-                    (doc.excerpt ? strip_html(doc.excerpt.output) : nil)
+      raw_desc = doc.data["description"] ||
+                 doc.data["tagline"] ||
+                 (doc.data["excerpt"]&.output ? strip_html(doc.data["excerpt"].output) : nil) ||
+                 (doc.excerpt ? strip_html(doc.excerpt.output) : nil)
+
+      description = if raw_desc
+                      cleaned = raw_desc.strip.gsub(/\s+/, " ")
+                      # Use first sentence rather than a hard char truncation
+                      first_sentence = cleaned.match(/\A.+?[.!?](?:\s|$)/)
+                      first_sentence ? first_sentence[0].strip : cleaned
+                    end
 
       {
         title: doc.data["title"],
         url: "#{site_base_url}#{doc.url}",
-        description: description&.strip&.gsub(/\s+/, " ")&.slice(0, 200),
+        description: description,
         content: doc.content
       }
     end
@@ -158,11 +165,14 @@ module Jekyll
 
     def format_item_full(item)
       lines = []
-      lines << "- [#{item[:title]}](#{item[:url]})"
+      lines << "### [#{item[:title]}](#{item[:url]})"
+      desc = item[:description]
+      lines << "" << "> #{desc}" if desc && !desc.empty?
       if item[:content] && !item[:content].empty?
         stripped = strip_html(item[:content]).strip.gsub(/\s+/, " ")
-        lines << "" << stripped << ""
+        lines << "" << stripped
       end
+      lines << "" << "---"
       lines.join("\n")
     end
 
